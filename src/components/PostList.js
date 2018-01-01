@@ -19,6 +19,7 @@ class PostList extends React.Component {
 
 
     componentWillMount() {
+        console.log("componentWillMount")
         this.getAllPost();
     }
 
@@ -52,7 +53,9 @@ class PostList extends React.Component {
 
         var posts = this.props.post;
 
-        //console.log("props ", this.props);
+        console.log("props ", this.props);
+        console.log("post ", this.props.post);
+        
 
         if (posts === undefined) {
             return (<div>loading...</div>)
@@ -61,6 +64,10 @@ class PostList extends React.Component {
 
         if (posts.length === 0) {
             return <p>Your search has 0 results.</p>
+        }
+
+        if(!Array.isArray(posts)){
+            return <p>dddd</p>
         }
 
         return (
@@ -95,7 +102,6 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return state;
 }
 

@@ -38,13 +38,12 @@ function post(state = initialPostState, action) {
             }
 
         case LIST_POST:
-            console.log("LIST:",action)
+            console.log("LIST:",action.post)
             return {
                 ...state,
                 post: action.post
             }
         case VIEW_POST:
-        console.log("VIEW:",action.post)
             return {
                 ...state,
                 post: action.post
@@ -52,7 +51,7 @@ function post(state = initialPostState, action) {
         case SORT_VOTE_ASC:
 
             var sortedAsc = action.post.sort(compareValues('voteScore'));
-            
+
             return {
                 ...state,
                 post: sortedAsc

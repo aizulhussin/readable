@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { fetchPostById } from '../utils/api';
-import {viewPost,listPost} from '../actions';
+import {viewPost} from '../actions';
 import { withRouter } from 'react-router-dom'
 
 
@@ -49,7 +49,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         viewPost: (data) => dispatch(viewPost(data)),
-        listPost: (data) => dispatch(listPost(data))    
     }
 }
 
