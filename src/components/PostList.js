@@ -1,7 +1,8 @@
 import React from 'react'
-import { listPost, sortPostByVoteAsc,sortPostByVoteDesc, upVote, downVote } from '../actions';
+import { listPost, sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
 import { fetchPost, vote } from '../utils/api';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 
 
@@ -38,12 +39,12 @@ class PostList extends React.Component {
     sortVoteScoreAsc(posts) {
 
         this.props.sortByVoteAsc(posts);
-        this.setState({posts:this.props.post});
+        this.setState({ posts: this.props.post });
     }
 
     sortVoteScoreDesc(posts) {
         this.props.sortByVoteDesc(posts);
-        this.setState({posts:this.props.post});
+        this.setState({ posts: this.props.post });
     }
 
 
@@ -65,15 +66,16 @@ class PostList extends React.Component {
         return (
             <div>
                 <div className='action-container'>
-                    <div><button onClick={()=>{this.sortVoteScoreAsc(posts)}}>Sort Vote Score Asc</button></div>
-                    <div><button onClick={()=>{this.sortVoteScoreDesc(posts)}}>Sort Vote Score Desc</button></div>
+                <div className="button-container"><button className="button">Add Post</button></div>
+                    <div className="button-container"><button className="button" onClick={() => { this.sortVoteScoreAsc(posts) }}>Sort Vote Score Asc</button></div>
+                    <div className="button-container"><button className="button" onClick={() => { this.sortVoteScoreDesc(posts) }}>Sort Vote Score Desc</button></div>
                 </div>
                 <ul className='contact-list'>
                     {posts.map((item) => (
                         <li key={item.id} className='contact-list-item'>
 
                             <div className='contact-details'>
-                                {item.title}
+                                <Link to={`/detail/${item.id}`}> {item.title}</Link>
                             </div>
                             <div className='post-list-sub'>
                                 <div> <span className="post-subtitle">Author</span> {item.author}</div>

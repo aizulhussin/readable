@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 import PostList from './PostList'
+import PostDetail from './PostDetail'
+
 
 
 class App extends Component {
-  
+
   render() {
 
     return (
-      <div className="App">
-        <PostList />
-      </div>
+      <Router>
+        <div className="App">
+          
+          <Route exact path='/' render={()=>(
+            <PostList />
+          )}/>
+
+          <Route exact path='/detail/:id' component={PostDetail}/>
+
+          
+        </div>
+      </Router>
     );
   }
 }

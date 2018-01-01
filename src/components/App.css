@@ -142,14 +142,29 @@ body, .app {
 }
 
 .action-container{
-  padding:20px;
-  border: 1px solid #d5d8df;
-  margin: 20px;
+  padding:10px;
+  margin: 10px;
   flex: 1;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.button-container{
+  padding:10px;
+}
+
+.button{
+  
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
 }
 
 .contact-details {
