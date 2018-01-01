@@ -26,16 +26,18 @@ export function addPost({ post }) {
     }
 }
 
-export function viewPost({ post }) {
+
+
+export function removePost(post) {
     return {
-        type: VIEW_POST,
+        type: REMOVE_POST,
         post: post
     }
 }
 
-export function removePost({ post }) {
+export function viewPost(post) {
     return {
-        type: REMOVE_POST,
+        type: VIEW_POST,
         post: post
     }
 }

@@ -1,22 +1,57 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { fetchPostById } from '../utils/api';
+import {viewPost,listPost} from '../actions';
+import { withRouter } from 'react-router-dom'
 
 
-class PostDetail extends React.Component{
+class PostDetail extends React.Component {
 
-    componentWillMount(){
-        console.log(this.props.match.params.id);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            posts: []
+        }
     }
 
-    render(){
+    componentWillMount() {
+        //console.log(this.props);
+        this.getPost(this.props.match.params.id);
+    }
+
+    getPost(id) {
+
+        fetchPostById(id).then((post) => {
+            this.props.viewPost(post);
+        })
+
+    }
+
+    render() {
+        console.log("Render:",this.props)
         return (
+
+            
 
             <div>
                 Post Detail
-            </div>    
+            </div>
         )
     }
 }
 
-export default PostDetail
+function mapStateToProps(state) {
+    return state;
+}
 
+function mapDispatchToProps(dispatch) {
+    return {
+        viewPost: (data) => dispatch(viewPost(data)),
+        listPost: (data) => dispatch(listPost(data))    
+    }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(PostDetail))
 

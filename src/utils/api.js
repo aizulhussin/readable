@@ -11,7 +11,9 @@ export function fetchPost() {
 }
 
 export function fetchPostById(id) {
-    return fetch("http://localhost:3001/posts/"+id,
+    var url = "http://localhost:3001/posts/"+id;
+    console.log(url);
+    return fetch(url,
         {
             method: 'GET',
             headers: {

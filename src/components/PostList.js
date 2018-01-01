@@ -1,8 +1,8 @@
 import React from 'react'
-import { listPost, sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
+import { listPost,sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
 import { fetchPost, vote } from '../utils/api';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 
 
 
@@ -75,7 +75,7 @@ class PostList extends React.Component {
                         <li key={item.id} className='contact-list-item'>
 
                             <div className='contact-details'>
-                                <Link to={`/detail/${item.id}`}> {item.title}</Link>
+                                <Link to={`/detail/${item.id}`} state={{detail:true}}> {item.title}</Link>
                             </div>
                             <div className='post-list-sub'>
                                 <div> <span className="post-subtitle">Author</span> {item.author}</div>
@@ -95,6 +95,7 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return state;
 }
 
@@ -111,7 +112,7 @@ function mapDispatchToProps(dispatch) {
 
 
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(PostList);
+)(PostList))

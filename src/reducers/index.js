@@ -37,12 +37,14 @@ function post(state = initialPostState, action) {
                 post: action.post
             }
 
-        case VIEW_POST:
+        case LIST_POST:
+            console.log("LIST:",action)
             return {
                 ...state,
                 post: action.post
             }
-        case LIST_POST:
+        case VIEW_POST:
+        console.log("VIEW:",action.post)
             return {
                 ...state,
                 post: action.post
