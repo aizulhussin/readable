@@ -13,14 +13,15 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          
-          <Route exact path='/' render={()=>(
+
+          <Route exact path='/' render={() => (
             <PostList />
-          )}/>
+          )} />
 
-          <Route exact path='/detail/:id' component={PostDetail}/>
+          <Route exact path='/:category' component={PostList}  />
+          <Route exact path='/:category/:id' component={PostDetail} />
 
-          
+
         </div>
       </Router>
     );

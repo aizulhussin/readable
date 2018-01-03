@@ -1,26 +1,39 @@
 import React from 'react'
-import { listPost,sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
-import { fetchPost, vote } from '../utils/api';
+import { listPost, listPostByCategory, sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
+import { fetchPost, fetchPostByCategory, vote } from '../utils/api';
 import { connect } from 'react-redux';
-import { Link,withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import PostCategories from './PostCategories'
 
 
 
 
 class PostList extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            sort: false,
-            posts: []
+
+    componentDidMount() {
+
+        var category = this.props.match.params.category;
+
+        if (category !== undefined) {
+            this.getPostByCategory(category);
+        } else {
+            this.getAllPost();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            this.getPostByCategory(nextProps.match.params.category);
         }
     }
 
 
-    componentWillMount() {
-        console.log("componentWillMount")
-        this.getAllPost();
+
+    getPostByCategory(category) {
+        fetchPostByCategory(category).then((posts) => {
+            this.props.listPostByCategory(posts);
+        });
     }
 
     getAllPost() {
@@ -51,11 +64,12 @@ class PostList extends React.Component {
 
     render() {
 
+
         var posts = this.props.post;
 
-        console.log("props ", this.props);
-        console.log("post ", this.props.post);
-        
+        //console.log("props ", this.props);
+        //console.log("post ", this.props.post);
+
 
         if (posts === undefined) {
             return (<div>loading...</div>)
@@ -63,26 +77,41 @@ class PostList extends React.Component {
 
 
         if (posts.length === 0) {
-            return <p>Your search has 0 results.</p>
+            return (
+                <div>
+                    <div className='action-container'>
+                        <PostCategories />
+                    </div>
+                    <div className='action-container'>
+                        <div className="button-container">No posts.</div>
+                        <div className="button-container"><button className="button">Add Post</button></div>
+                    </div>
+                </div>
+            )
         }
 
-        if(!Array.isArray(posts)){
-            return <p>dddd</p>
+        if (!Array.isArray(posts)) {
+            return <div />
         }
 
         return (
             <div>
                 <div className='action-container'>
-                <div className="button-container"><button className="button">Add Post</button></div>
+                    <PostCategories />
+                </div>
+
+                <div className='action-container'>
+                    <div className="button-container"><button className="button">Add Post</button></div>
                     <div className="button-container"><button className="button" onClick={() => { this.sortVoteScoreAsc(posts) }}>Sort Vote Score Asc</button></div>
                     <div className="button-container"><button className="button" onClick={() => { this.sortVoteScoreDesc(posts) }}>Sort Vote Score Desc</button></div>
                 </div>
+
                 <ul className='contact-list'>
                     {posts.map((item) => (
                         <li key={item.id} className='contact-list-item'>
 
                             <div className='contact-details'>
-                                <Link to={`/detail/${item.id}`} state={{detail:true}}> {item.title}</Link>
+                                <Link to={`/${item.category}/${item.id}`} state={{ detail: true }}> {item.title}</Link>
                             </div>
                             <div className='post-list-sub'>
                                 <div> <span className="post-subtitle">Author</span> {item.author}</div>
@@ -90,6 +119,7 @@ class PostList extends React.Component {
                                 <div className="post-subitem"><span className="post-subtitle">Vote score</span> {item.voteScore}</div>
                                 <div className="post-subitem"><button onClick={() => this.vote(item.id, "upVote")}>Like</button></div>
                                 <div className="post-subitem"><button onClick={() => this.vote(item.id, "downVote")}>Dislike</button></div>
+                                <div className="post-subitem"><button>Edit</button></div>
                                 <div className="post-subitem"><button>Remove</button></div>
                             </div>
 
@@ -109,6 +139,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         listPost: (data) => dispatch(listPost(data)),
+        listPostByCategory: (data) => dispatch(listPostByCategory(data)),
         sortByVoteAsc: (data) => dispatch(sortPostByVoteAsc(data)),
         sortByVoteDesc: (data) => dispatch(sortPostByVoteDesc(data)),
         upVote: (data) => dispatch(upVote(data)),

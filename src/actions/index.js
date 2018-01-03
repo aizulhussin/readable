@@ -1,4 +1,5 @@
 export const LIST_POST = 'LIST_POST';
+export const LIST_POST_CATEGORY = 'LIST_POST_CATEGORY';
 export const ADD_POST = 'ADD_POST';
 export const VIEW_POST = 'VIEW_POST';
 export const REMOVE_POST = 'REMOVE_POST';
@@ -39,6 +40,13 @@ export function viewPost(post) {
     return {
         type: VIEW_POST,
         post: post
+    }
+}
+
+export function listPostByCategory(posts) {
+    return {
+        type: LIST_POST_CATEGORY,
+        post: posts
     }
 }
 

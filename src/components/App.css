@@ -141,6 +141,56 @@ body, .app {
   }
 }
 
+.header{
+
+  padding:10px;
+  margin: 10px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+}
+
+.form-container{
+  padding:20px;
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+  margin: 10px;
+
+}
+
+.form-field{
+  padding:5px;
+  margin: 5px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.form-value{
+  margin-left: 15px
+}
+
+.form-label{
+  font-size: 16px;
+  font-weight: bold; 
+}
+
+.form-post-title{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-post-body{
+  margin-top: 5px;
+  font-size: 16px; 
+}
+
+
 .action-container{
   padding:10px;
   margin: 10px;
@@ -158,9 +208,10 @@ body, .app {
 .button{
   
   background-color: #008CBA;
+  border-radius: 4px;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -179,6 +230,7 @@ body, .app {
 }
 
 .post-subtitle{
+  padding-left:10px;
   font-weight: bold
 }
 
@@ -186,13 +238,25 @@ body, .app {
   margin-left: 100px;
 }
 
+.post-details{
+  
+  font-size: 12px;
+}
+
 .post-list-sub {
   font-size: 12px;
   padding-left: 20px;
-
   flex: 1;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
+.post-detail-sub {
+  font-size: 12px;
+  flex: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -209,6 +273,17 @@ body, .app {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#categorieslist li
+{
+display: inline;
+list-style-type: none;
+padding-right: 20px;
+}
+
+.categories-title{
+  font-weight: bold
 }
 
 

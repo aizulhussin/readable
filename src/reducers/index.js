@@ -3,6 +3,7 @@ import {
     REMOVE_POST,
     VIEW_POST,
     LIST_POST,
+    LIST_POST_CATEGORY,
     SORT_VOTE_ASC,
     SORT_VOTE_DESC,
     VOTE_UP,
@@ -38,11 +39,16 @@ function post(state = initialPostState, action) {
             }
 
         case LIST_POST:
-            console.log("LIST:",action.post)
             return {
                 ...state,
                 post: action.post
             }
+        case LIST_POST_CATEGORY:
+            return {
+                ...state,
+                post: action.post
+            }
+
         case VIEW_POST:
             return {
                 ...state,
