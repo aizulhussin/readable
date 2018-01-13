@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { fetchPost, updatePostById,vote } from '../utils/api';
-import { listPost,upVote, downVote } from '../actions';
+import { fetchPost, updatePostById, vote } from '../utils/api';
+import { listPost, upVote, downVote } from '../actions';
 import { Link, withRouter } from 'react-router-dom'
 import PostComments from './PostComments'
 
@@ -13,8 +13,8 @@ class PostDetail extends React.Component {
 
         this.state = {
             loading: true,
-            title:'',
-            body:'',
+            title: undefined,
+            body: undefined,
             isEdit: false
         }
     }
@@ -26,11 +26,13 @@ class PostDetail extends React.Component {
         })
     }
 
-    save(){
-
-        updatePostById({title:this.state.title,body:this.state.body}).then((response)=>{
-            console.log(response);
-        });
+    save(id) {
+        console.log("Save! ",this.state);
+        if (this.state.title !== undefined || this.state.body !== undefined) {
+            updatePostById(id, { title: this.state.title, body: this.state.body }).then((response) => {
+                console.log(response);
+            });
+        }
 
     }
 
@@ -41,24 +43,23 @@ class PostDetail extends React.Component {
     }
 
     handleTitleInput = (title) => {
-        this.setState({title:title});
+        this.setState({ title: title });
     }
 
     handleBodyInput = (body) => {
-        this.setState({body:body});
+        this.setState({ body: body });
     }
 
     getPost(id) {
 
-        
-        var postList = this.props.postList.post;
-        console.log("Get Post:",postList);
 
+        var postList = this.props.postList.post;
+        
         if (postList.length === 0) {
             console.log("Fetch Post");
             fetchPost().then((posts) => {
                 this.props.listPost(posts);
-                this.setState({loading:false});
+                this.setState({ loading: false });
             });
         }
     }
@@ -77,12 +78,12 @@ class PostDetail extends React.Component {
         var post = filtered[0];
         var isEdit = this.state.isEdit;
 
-        
+
         if (post === undefined) {
-            return <div/>
+            return <div />
         }
 
-        
+
         return (
             <div>
                 <div className="header">
@@ -90,14 +91,14 @@ class PostDetail extends React.Component {
                 </div>
                 <div className="form-container">
                     <div className="form-field">
-                        {isEdit ? <div><button onClick={() => this.edit()}>Save</button></div> : <div><button onClick={() => this.edit()}>Edit</button></div>}
+                        {isEdit ? <div><button onClick={() => this.save(post.id)}>Save</button></div> : <div><button onClick={() => this.edit()}>Edit</button></div>}
                         <div><button className="form-value">Remove</button></div>
                         <div className="post-subitem"><button onClick={() => this.vote(post.id, "upVote")}>Like</button></div>
                         <div className="post-subitem"><button onClick={() => this.vote(post.id, "downVote")}>Dislike</button></div>
                     </div>
                     <div className="form-field">
                         {isEdit ? <div className="form-post-title">
-                            <input className="input-text" type="text" placeholder={post.title} onChange={(event) => this.handleTitleInput(event.target.value)} /></div>
+                            <input className="input-text" type="text" defaultValue={post.title} onChange={(event) => this.handleTitleInput(event.target.value)} /></div>
 
                             : <div className="form-post-title">{post.title}</div>}
                     </div>
@@ -112,7 +113,7 @@ class PostDetail extends React.Component {
 
                     <div className="form-field">
                         {isEdit ? <div className="form-post-body">
-                            <textarea className="input-text" placeholder={post.body} onChange={(event) => this.handleBodyInput(event.target.value)} />
+                            <textarea className="input-text" defaultValue={post.body} onChange={(event) => this.handleBodyInput(event.target.value)} />
                         </div> : <div className="form-post-body">{post.body}</div>}
                     </div>
                     <PostComments id={post.id} />
