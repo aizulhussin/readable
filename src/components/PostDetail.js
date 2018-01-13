@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { fetchPost, updatePostById, vote } from '../utils/api';
-import { listPost, upVote, downVote } from '../actions';
+import { listPost,updatePost, upVote, downVote } from '../actions';
 import { Link, withRouter } from 'react-router-dom'
 import PostComments from './PostComments'
 
@@ -31,6 +31,7 @@ class PostDetail extends React.Component {
         if (this.state.title !== undefined || this.state.body !== undefined) {
             updatePostById(id, { title: this.state.title, body: this.state.body }).then((response) => {
                 console.log(response);
+                this.props.editPost(response);
             });
         }
 
@@ -132,6 +133,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         listPost: (data) => dispatch(listPost(data)),
+        editPost:(data)=>dispatch(updatePost(data)),
         upVote: (data) => dispatch(upVote(data)),
         downVote: (data) => dispatch(downVote(data))
     }

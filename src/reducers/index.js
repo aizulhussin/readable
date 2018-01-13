@@ -1,6 +1,7 @@
 import {
     ADD_POST,
     REMOVE_POST,
+    UPDATE_POST,
     LIST_POST,
     LIST_POST_CATEGORY,
     SORT_VOTE_ASC,
@@ -34,6 +35,17 @@ function postList(state = initialPostState, action) {
                 ...state,
                 post: action.post
             }
+
+        case UPDATE_POST:
+
+
+            return {
+                ...state, post: state.post.map(post =>
+                    (post.id === action.post.id)
+                        ? { ...post, body: action.post.body, title: action.post.title }
+                        : post
+                )
+            };
 
         case LIST_POST:
             return {
@@ -89,4 +101,4 @@ function postList(state = initialPostState, action) {
     }
 }
 
-export default combineReducers({postList});
+export default combineReducers({ postList });

@@ -65,6 +65,19 @@ export function updatePostById(id,payload) {
         }).then((res) => res.json());
 }
 
+export function deletePostById(id) {
+    var url = "http://localhost:3001/posts/"+id;
+    //console.log(url);
+    return fetch(url,
+        {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => res.json());
+}
+
 
 
 export function fetchPostById(id) {

@@ -11,6 +11,7 @@ import PostCategories from './PostCategories'
 class PostList extends React.Component {
 
 
+
     componentDidMount() {
 
         var category = this.props.match.params.category;
@@ -61,6 +62,16 @@ class PostList extends React.Component {
         this.setState({ posts: this.props.post });
     }
 
+    getPath(){
+        var category = this.props.match.params.category;
+        if (category!==undefined){
+            return category+'/add';
+        }else{
+            console.log("All Path");
+            return  'all/add';
+        }
+    }
+
 
     render() {
 
@@ -101,7 +112,12 @@ class PostList extends React.Component {
                 </div>
 
                 <div className='action-container'>
-                    <div className="button-container"><button className="button">Add Post</button></div>
+                    <div className="button-container">
+                        <button
+                            className="button"
+                            onClick={() => this.props.history.push(this.getPath())}
+                        >
+                            Add Post</button></div>
                     <div className="button-container"><button className="button" onClick={() => { this.sortVoteScoreAsc(posts) }}>Sort Vote Score Asc</button></div>
                     <div className="button-container"><button className="button" onClick={() => { this.sortVoteScoreDesc(posts) }}>Sort Vote Score Desc</button></div>
                 </div>

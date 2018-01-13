@@ -1,8 +1,7 @@
 export const LIST_POST = 'LIST_POST';
 export const LIST_POST_CATEGORY = 'LIST_POST_CATEGORY';
 export const ADD_POST = 'ADD_POST';
-export const VIEW_POST = 'VIEW_POST';
-export const EDIT_POST = 'EDIT_POST';
+export const UPDATE_POST = 'UPDATE_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
 export const LIST_CATEGORIES = 'LIST_CATEGORIES';
@@ -35,18 +34,10 @@ export function removePost(post) {
     }
 }
 
-export function viewPost(post) {
-    return {
-        type: VIEW_POST,
-        isEdit:false,
-        post: post
-    }
-}
 
-export function editPost(post) {
+export function updatePost(post) {
     return {
-        type: EDIT_POST,
-        isEdit:true,
+        type: UPDATE_POST,
         post: post
     }
 }
