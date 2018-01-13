@@ -1,7 +1,6 @@
 import {
     ADD_POST,
     REMOVE_POST,
-    VIEW_POST,
     LIST_POST,
     LIST_POST_CATEGORY,
     SORT_VOTE_ASC,
@@ -11,18 +10,16 @@ import {
 } from '../actions';
 
 import { compareValues } from '../utils/helper'
-
+import { combineReducers } from 'redux';
 
 const initialPostState =
     {
-        post: [
-            {
-                id: 0,
-                timestamp: "03-12-2017", title: "Post", body: "Post Body", author: "author", category: "react", voteScore: 1, deleted: false, commentCount: 0
-            }]
+        post: []
     }
 
-function post(state = initialPostState, action) {
+
+
+function postList(state = initialPostState, action) {
 
 
     switch (action.type) {
@@ -49,11 +46,6 @@ function post(state = initialPostState, action) {
                 post: action.post
             }
 
-        case VIEW_POST:
-            return {
-                ...state,
-                post: action.post
-            }
         case SORT_VOTE_ASC:
 
             var sortedAsc = action.post.sort(compareValues('voteScore'));
@@ -97,4 +89,4 @@ function post(state = initialPostState, action) {
     }
 }
 
-export default post;
+export default combineReducers({postList});

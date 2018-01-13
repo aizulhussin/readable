@@ -286,4 +286,40 @@ padding-right: 20px;
   font-weight: bold
 }
 
+.input-wrapper{
+  width:100%;
+}
+
+.input-text{
+  width: 500px;
+  padding: 15px 10px;
+  font-size: 1.25em;
+  box-sizing: border-box;
+}
+
+.comments-title{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.comments-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.comments-list-item {
+  padding: 15px;
+  font-size: 13px;
+  background: white;
+  display: flex;
+  flex-direction: column
+}
+
+.comments-body
+{
+  display: flex;
+  flex-direction: flex-start
+}
+
 

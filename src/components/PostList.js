@@ -65,9 +65,9 @@ class PostList extends React.Component {
     render() {
 
 
-        var posts = this.props.post;
+        var posts = this.props.postList.post;
 
-        //console.log("props ", this.props);
+        console.log("props ", this.props);
         //console.log("post ", this.props.post);
 
 
