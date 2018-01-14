@@ -61,7 +61,7 @@ class PostAdd extends React.Component {
     render() {
 
         if(this.state.submitted){
-            return <div className="form-container"><button className="button-form" onClick={() => this.props.history.goBack()}>DONE</button></div>
+            return <div className="form-container">Post added successfully. <button className="button-form" onClick={() => this.props.history.goBack()}>DONE</button></div>
         }
 
         return (

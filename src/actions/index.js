@@ -4,15 +4,13 @@ export const ADD_POST = 'ADD_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
-export const LIST_CATEGORIES = 'LIST_CATEGORIES';
-export const ADD_CATEGORY = 'ADD_CATEGORY';
-export const VIEW_CATEGORY = 'VIEW_CATEGORY';
-export const REMOVE_CATEGORY = 'REMOVE_CATEGORY';
-
-export const LIST_COMMENTS = 'LIST_COMMENTS';
+export const LIST_COMMENT = 'LIST_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const VIEW_COMMENT = 'VIEW_COMMENT';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const LIKE_COMMENT = 'LIKE_COMMENT';
+export const DISLIKE_COMMENT = 'DISLIKE_COMMENT';
 
 export const VOTE_UP='VOTE_UP';
 export const VOTE_DOWN='VOTE_DOWN';
@@ -20,8 +18,52 @@ export const VOTE_DOWN='VOTE_DOWN';
 export const SORT_VOTE_ASC = 'SORT_VOTE_ASC';
 export const SORT_VOTE_DESC = 'SORT_VOTE_DESC';
 
+export function dislikeComment(comment){
+    return {
+        type: DISLIKE_COMMENT,
+        comment: comment
+    }
+}
+
+export function likeComment(comment){
+    return {
+        type: LIKE_COMMENT,
+        comment: comment
+    }
+}
+
+export function listComment(comment){
+    return {
+        type: LIST_COMMENT,
+        comment: comment
+    }
+}
+
+export function addComment(comment){
+    return {
+        type: ADD_COMMENT,
+        comment: comment
+    }
+}
+
+export function updateComment(comment){
+    return {
+        type: UPDATE_COMMENT,
+        comment: comment
+    }
+}
+
+export function removeComment(comment){
+    return {
+        type: REMOVE_COMMENT,
+        comment: comment
+    }
+}
+
+
+
 export function addPost(post) {
-    console.log("ACTION addPost:",post);
+    
     return {
         type: ADD_POST,
         post: post

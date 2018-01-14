@@ -1,6 +1,6 @@
 import React from 'react'
-import { listPost, listPostByCategory, sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
-import { fetchPost, fetchPostByCategory, vote } from '../utils/api';
+import { listPost,removePost,listPostByCategory, sortPostByVoteAsc, sortPostByVoteDesc, upVote, downVote } from '../actions';
+import { fetchPost, fetchPostByCategory, deletePostById,vote } from '../utils/api';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 import PostCategories from './PostCategories'
@@ -41,6 +41,12 @@ class PostList extends React.Component {
         fetchPost().then((posts) => {
             this.props.listPost(posts);
         });
+    }
+
+    removePost(id){
+        deletePostById(id).then((response)=>{
+            this.props.removePost(response);
+        })
     }
 
 
@@ -136,7 +142,9 @@ class PostList extends React.Component {
                                 <div className="post-subitem"><button onClick={() => this.vote(item.id, "upVote")}>Like</button></div>
                                 <div className="post-subitem"><button onClick={() => this.vote(item.id, "downVote")}>Dislike</button></div>
                                 <div className="post-subitem"><button>Edit</button></div>
-                                <div className="post-subitem"><button>Remove</button></div>
+                                <div className="post-subitem">
+                                    <button onClick={()=>this.removePost(item.id)}>Remove</button>
+                                </div>
                             </div>
 
                         </li>
@@ -159,7 +167,8 @@ function mapDispatchToProps(dispatch) {
         sortByVoteAsc: (data) => dispatch(sortPostByVoteAsc(data)),
         sortByVoteDesc: (data) => dispatch(sortPostByVoteDesc(data)),
         upVote: (data) => dispatch(upVote(data)),
-        downVote: (data) => dispatch(downVote(data))
+        downVote: (data) => dispatch(downVote(data)),
+        removePost:(data)=>dispatch(removePost(data))
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { fetchPost, updatePostById, vote } from '../utils/api';
-import { listPost,updatePost, upVote, downVote } from '../actions';
+import { fetchPost, deletePostById,updatePostById, vote } from '../utils/api';
+import { listPost,updatePost, removePost,upVote, downVote } from '../actions';
 import { Link, withRouter } from 'react-router-dom'
 import PostComments from './PostComments'
 
@@ -15,7 +15,8 @@ class PostDetail extends React.Component {
             loading: true,
             title: undefined,
             body: undefined,
-            isEdit: false
+            isEdit: false,
+            removed:false
         }
     }
 
@@ -51,6 +52,13 @@ class PostDetail extends React.Component {
         this.setState({ body: body });
     }
 
+    removePost(id){
+        deletePostById(id).then((response)=>{
+            this.props.removePost(response);
+            this.setState({removed:true});
+        })
+    }
+
     getPost(id) {
 
 
@@ -79,9 +87,8 @@ class PostDetail extends React.Component {
         var post = filtered[0];
         var isEdit = this.state.isEdit;
 
-
-        if (post === undefined) {
-            return <div />
+        if(post === undefined){
+            return <div className="form-container">No post exist. <button className="button-form" onClick={() => this.props.history.goBack()}>DONE</button></div>
         }
 
 
@@ -93,7 +100,9 @@ class PostDetail extends React.Component {
                 <div className="form-container">
                     <div className="form-field">
                         {isEdit ? <div><button onClick={() => this.save(post.id)}>Save</button></div> : <div><button onClick={() => this.edit()}>Edit</button></div>}
-                        <div><button className="form-value">Remove</button></div>
+                        <div className="post-subitem">
+                                    <button onClick={()=>this.removePost(post.id)}>Remove</button>
+                                </div>
                         <div className="post-subitem"><button onClick={() => this.vote(post.id, "upVote")}>Like</button></div>
                         <div className="post-subitem"><button onClick={() => this.vote(post.id, "downVote")}>Dislike</button></div>
                     </div>
@@ -135,7 +144,8 @@ function mapDispatchToProps(dispatch) {
         listPost: (data) => dispatch(listPost(data)),
         editPost:(data)=>dispatch(updatePost(data)),
         upVote: (data) => dispatch(upVote(data)),
-        downVote: (data) => dispatch(downVote(data))
+        downVote: (data) => dispatch(downVote(data)),
+        removePost:(data)=>dispatch(removePost(data))
     }
 }
 

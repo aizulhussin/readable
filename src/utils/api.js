@@ -84,7 +84,7 @@ export function deletePostById(id) {
     //console.log(url);
     return fetch(url,
         {
-            method: 'PUT',
+            method: 'DELETE',
             headers: {
                 'Authorization': 'mytoken123',
                 'Content-Type': 'application/json'
