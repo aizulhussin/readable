@@ -73,7 +73,6 @@ class PostList extends React.Component {
         if (category!==undefined){
             return category+'/post/add';
         }else{
-            console.log("All Path");
             return  'all/post/add';
         }
     }
@@ -83,10 +82,6 @@ class PostList extends React.Component {
 
 
         var posts = this.props.postList.post;
-
-        console.log("props ", this.props);
-        //console.log("post ", this.props.post);
-
 
         if (posts === undefined) {
             return (<div>loading...</div>)

@@ -34,6 +34,8 @@ class PostDetail extends React.Component {
                 console.log(response);
                 this.props.editPost(response);
             });
+        }else{
+            this.setState({isEdit:false});
         }
 
     }

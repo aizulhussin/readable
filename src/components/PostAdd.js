@@ -18,11 +18,6 @@ class PostAdd extends React.Component {
         }
     }
 
-
-    componentDidMount() {
-        console.log('Category:', this.props.match.params.category);
-    }
-
     handleTitleInput = (title) => {
         this.setState({ title: title });
     }
@@ -50,7 +45,6 @@ class PostAdd extends React.Component {
         }
 
         newPost(post).then((response)=>{
-            console.log("Response:",response);
             this.props.addPost(response);
             this.setState({submitted:true});
         });
@@ -98,7 +92,6 @@ function mapDispatchToProps(dispatch) {
     return {
         addPost: (data) => 
         {
-            //console.log("mapDispatchToProps:",data);
             dispatch(addPost(data))
         }
     }

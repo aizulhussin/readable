@@ -35,7 +35,10 @@ class PostComments extends React.Component{
         var comments = this.state.comments;
         return(
             <div>
-                <div className="form-field"><div className="comments-title">Comments</div></div>
+                <div className="form-field">
+                    <div className="comments-title">Comments</div>
+                    <div className="post-subitem"><button>Add Comment</button></div>
+                </div>
                 <div>
                 <ul className="comments-list">
                     {

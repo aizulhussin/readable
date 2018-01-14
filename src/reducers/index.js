@@ -51,6 +51,26 @@ function commentList(state = initialCommentState, action) {
                         : comment
                 )
             };
+        case LIKE_COMMENT:
+
+            var comments = state.comment.map(comment =>
+                (comment.id === action.comment.id)
+                    ? { ...comment, voteScore: action.comment.voteScore }
+                    : comment
+            )
+
+            return {
+                ...state, comment: comments
+            };
+
+        case DISLIKE_COMMENT:
+            return {
+                comment: state.comment.map(comment =>
+                    (comment.id === action.comment.id)
+                        ? { ...comment, voteScore: action.comment.voteScore }
+                        : comment
+                )
+            };
 
         default:
             return state;
