@@ -50,6 +50,20 @@ export function fetchComments(postId) {
         }).then((res) => res.json());
 }
 
+export function newPost(payload) {
+    var url = "http://localhost:3001/posts";
+    //console.log(url);
+    return fetch(url,
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(payload)
+        }).then((res) => res.json());
+}
+
 
 export function updatePostById(id,payload) {
     var url = "http://localhost:3001/posts/"+id;

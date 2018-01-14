@@ -20,7 +20,8 @@ export const VOTE_DOWN='VOTE_DOWN';
 export const SORT_VOTE_ASC = 'SORT_VOTE_ASC';
 export const SORT_VOTE_DESC = 'SORT_VOTE_DESC';
 
-export function addPost({ post }) {
+export function addPost(post) {
+    console.log("ACTION addPost:",post);
     return {
         type: ADD_POST,
         post: post

@@ -28,8 +28,9 @@ function postList(state = initialPostState, action) {
         case ADD_POST:
             return {
                 ...state,
-                post: action.post
+                post: [...state.post, action.post]
             }
+
         case REMOVE_POST:
             return {
                 ...state,

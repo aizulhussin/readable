@@ -65,10 +65,10 @@ class PostList extends React.Component {
     getPath(){
         var category = this.props.match.params.category;
         if (category!==undefined){
-            return category+'/add';
+            return category+'/post/add';
         }else{
             console.log("All Path");
-            return  'all/add';
+            return  'all/post/add';
         }
     }
 

@@ -218,6 +218,21 @@ body, .app {
   font-size: 12px;
 }
 
+.button-form{
+  
+  background-color: #008CBA;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin-left: 5px
+}
+
+
 .contact-details {
   font-size: 20px;
   padding-left: 20px;
@@ -294,6 +309,7 @@ padding-right: 20px;
   width: 500px;
   padding: 15px 10px;
   font-size: 1.25em;
+  border: 1px solid #ebebeb;
   box-sizing: border-box;
 }
 
