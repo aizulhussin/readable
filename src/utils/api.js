@@ -24,9 +24,9 @@ export function fetchPost() {
 }
 
 export function fetchPostByCategory(category) {
-    
-    var url = "http://localhost:3001/"+category+"/posts"
-    console.log("CAT:",url);
+
+    var url = "http://localhost:3001/" + category + "/posts"
+    console.log("CAT:", url);
     return fetch(url,
         {
             method: 'GET',
@@ -37,18 +37,7 @@ export function fetchPostByCategory(category) {
         }).then((res) => res.json());
 }
 
-export function fetchComments(postId) {
-    var url = "http://localhost:3001/posts/"+postId+"/comments";
-    //console.log(url);
-    return fetch(url,
-        {
-            method: 'GET',
-            headers: {
-                'Authorization': 'mytoken123',
-                'Content-Type': 'application/json'
-            }
-        }).then((res) => res.json());
-}
+
 
 export function newPost(payload) {
     var url = "http://localhost:3001/posts";
@@ -60,13 +49,13 @@ export function newPost(payload) {
                 'Authorization': 'mytoken123',
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(payload)
+            body: JSON.stringify(payload)
         }).then((res) => res.json());
 }
 
 
-export function updatePostById(id,payload) {
-    var url = "http://localhost:3001/posts/"+id;
+export function updatePostById(id, payload) {
+    var url = "http://localhost:3001/posts/" + id;
     //console.log(url);
     return fetch(url,
         {
@@ -75,12 +64,12 @@ export function updatePostById(id,payload) {
                 'Authorization': 'mytoken123',
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(payload)
+            body: JSON.stringify(payload)
         }).then((res) => res.json());
 }
 
 export function deletePostById(id) {
-    var url = "http://localhost:3001/posts/"+id;
+    var url = "http://localhost:3001/posts/" + id;
     //console.log(url);
     return fetch(url,
         {
@@ -95,7 +84,7 @@ export function deletePostById(id) {
 
 
 export function fetchPostById(id) {
-    var url = "http://localhost:3001/posts/"+id;
+    var url = "http://localhost:3001/posts/" + id;
     //console.log(url);
     return fetch(url,
         {
@@ -107,15 +96,81 @@ export function fetchPostById(id) {
         }).then((res) => res.json());
 }
 
-export function vote(id,voteType) {
-    return fetch("http://localhost:3001/posts/"+id,
+export function vote(id, voteType) {
+    return fetch("http://localhost:3001/posts/" + id,
         {
             method: 'POST',
             headers: {
                 'Authorization': 'mytoken123',
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({option:voteType})
+            body: JSON.stringify({ option: voteType })
         }).then((res) => res.json());
 }
 
+export function fetchComments(postId) {
+    var url = "http://localhost:3001/posts/" + postId + "/comments";
+    //console.log(url);
+    return fetch(url,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => res.json());
+}
+
+export function newComment(payload) {
+    var url = "http://localhost:3001/comments";
+    //console.log(url);
+    return fetch(url,
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then((res) => res.json());
+}
+
+
+export function editComment(id, payload) {
+    var url = "http://localhost:3001/comments/" + id;
+    //console.log(url);
+    return fetch(url,
+        {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then((res) => res.json());
+}
+
+export function deleteComment(id) {
+    var url = "http://localhost:3001/comments/" + id;
+    //console.log(url);
+    return fetch(url,
+        {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => res.json());
+}
+
+export function voteComment(id, voteType) {
+    return fetch("http://localhost:3001/comments/" + id,
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': 'mytoken123',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ option: voteType })
+        }).then((res) => res.json());
+}

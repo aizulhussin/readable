@@ -3,7 +3,6 @@ import {
     REMOVE_POST,
     UPDATE_POST,
     LIST_POST,
-    LIST_POST_CATEGORY,
     SORT_VOTE_ASC,
     SORT_VOTE_DESC,
     VOTE_UP,
@@ -21,8 +20,8 @@ const initialPostState =
 
 const initialCommentState = { comment: [] };
 
-function removeItem(array, action) {
-    return array.filter((item) => item.id !== action.post.id);
+function removeItem(array, id) {
+    return array.filter((item) => item.id !== id);
 }
 
 
@@ -39,9 +38,10 @@ function commentList(state = initialCommentState, action) {
                 comment: [...state.comment, action.comment]
             }
         case REMOVE_COMMENT:
+
             return {
                 ...state,
-                comment: action.comment
+                comment: removeItem(state.comment,action.comment.id)
             }
         case UPDATE_COMMENT:
             return {
@@ -92,7 +92,7 @@ function postList(state = initialPostState, action) {
 
         case REMOVE_POST:
 
-            var filtered = removeItem(state.post, action);
+            var filtered = removeItem(state.post, action.post.id);
 
             return {
                 ...state,

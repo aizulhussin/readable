@@ -1,8 +1,11 @@
 import React from 'react'
-import { fetchComments } from '../utils/api';
+import { fetchComments, deleteComment, voteComment } from '../utils/api';
 import { connect } from 'react-redux';
+import { removeComment, likeComment, dislikeComment,listComment } from '../actions';
+import { withRouter } from 'react-router-dom'
 
-class PostComments extends React.Component{
+
+class PostComments extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,61 +15,87 @@ class PostComments extends React.Component{
         }
     }
 
-    componentDidMount(){
-        var id =  this.props.id;
-        console.log("Post Id:",id);
+    componentDidMount() {
+        var id = this.props.id;
+       //console.log("Post Id:", id);
         this.getComments(id);
-        console.log("PostComments:",this.props);
+        console.log("PostComments:", this.props);
     }
 
-    getComments(postId){
-        
-        fetchComments(postId).then((comments)=>{
+    removeComment(id) {
+
+        deleteComment(id).then((response) => {
+            this.props.removeComment(response);
+        })
+
+    }
+
+    getComments(postId) {
+
+        fetchComments(postId).then((comments) => {
             console.log(comments);
-            this.setState({comments:comments,loading:false});
+            this.props.listComment(comments);
+            this.setState({ loading: false });
         });
     }
 
-    vote(){
+    vote(id, voteType) {
+        voteComment(id, voteType).then((response) => {
 
+            if (voteType === 'upVote') {
+                this.props.likeComment(response);
+            } else {
+                this.props.dislikeComment(response);
+            }
+        });
     }
 
-    render(){
-        var comments = this.state.comments;
-        return(
+    render() {
+        var comments = this.props.commentList.comment;
+        return (
             <div>
                 <div className="form-field">
                     <div className="comments-title">Comments</div>
-                    <div className="post-subitem"><button>Add Comment</button></div>
+                    <div className="post-subitem"><button onClick={()=>this.props.history.push('/posts/comments/'+this.props.id)}>Add Comment</button></div>
                 </div>
                 <div>
-                <ul className="comments-list">
-                    {
-                        comments.map((comment)=>(
-                           <li key={comment.id} className="comments-list-item">
-                              <div className="comments-body"> {comment.body}</div>
-                              <div className='post-list-sub'>
-                                <div> <span className="post-subtitle">Author</span> {comment.author}</div>
-                                <div className="post-subitem"><span className="post-subtitle">Vote</span> {comment.voteScore}</div>
-                                <div className="post-subitem"><button onClick={() => this.vote(comment.id, "upVote")}>Like</button></div>
-                                <div className="post-subitem"><button onClick={() => this.vote(comment.id, "downVote")}>Dislike</button></div>
-                                <div className="post-subitem"><button>Edit</button></div>
-                                <div className="post-subitem"><button>Remove</button></div>
-                            </div>
-                           </li> 
-                        ))
-                    }
-                </ul> 
-                </div>   
+                    <ul className="comments-list">
+                        {
+                            comments.map((comment) => (
+                                <li key={comment.id} className="comments-list-item">
+                                    <div className="comments-body"> {comment.body}</div>
+                                    <div className='post-list-sub'>
+                                        <div> <span className="post-subtitle">Author</span> {comment.author}</div>
+                                        <div className="post-subitem"><span className="post-subtitle">Vote</span> {comment.voteScore}</div>
+                                        <div className="post-subitem"><button onClick={() => this.vote(comment.id, "upVote")}>Like</button></div>
+                                        <div className="post-subitem"><button onClick={() => this.vote(comment.id, "downVote")}>Dislike</button></div>
+                                        <div className="post-subitem"><button onClick={()=>this.props.history.push('/posts/comments/edit/'+comment.id)}>Edit</button></div>
+                                        <div className="post-subitem"><button onClick={() => this.removeComment(comment.id)}>Remove</button></div>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
             </div>
         );
     }
-
-
 }
 
 function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps)(PostComments)
+function mapDispatchToProps(dispatch) {
+    return {
+        removeComment: (data) => {
+            dispatch(removeComment(data))
+        },
+
+        likeComment: (data) => dispatch(likeComment(data)),
+        dislikeComment: (data) => dispatch(dislikeComment(data)),
+        listComment:(data)=>dispatch(listComment(data))
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostComments))

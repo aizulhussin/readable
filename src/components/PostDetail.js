@@ -41,7 +41,7 @@ class PostDetail extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Component Did Mount");
+        //console.log("Component Did Mount");
         var id = this.props.match.params.id;
         this.getPost(id);
     }
@@ -85,7 +85,6 @@ class PostDetail extends React.Component {
 
         var postList = this.props.postList.post;
         var filtered = postList.filter((item => item.id === this.props.match.params.id));
-
         var post = filtered[0];
         var isEdit = this.state.isEdit;
 
