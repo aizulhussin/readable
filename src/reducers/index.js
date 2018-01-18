@@ -3,6 +3,7 @@ import {
     REMOVE_POST,
     UPDATE_POST,
     LIST_POST,
+    LIST_POST_CATEGORY,
     SORT_VOTE_ASC,
     SORT_VOTE_DESC,
     VOTE_UP,
@@ -41,7 +42,7 @@ function commentList(state = initialCommentState, action) {
 
             return {
                 ...state,
-                comment: removeItem(state.comment,action.comment.id)
+                comment: removeItem(state.comment, action.comment.id)
             }
         case UPDATE_COMMENT:
             return {
@@ -109,6 +110,12 @@ function postList(state = initialPostState, action) {
             };
 
         case LIST_POST:
+            return {
+                ...state,
+                post: action.post
+            }
+
+        case LIST_POST_CATEGORY:
             return {
                 ...state,
                 post: action.post

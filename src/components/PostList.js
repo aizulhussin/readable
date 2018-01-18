@@ -33,6 +33,7 @@ class PostList extends React.Component {
 
     getPostByCategory(category) {
         fetchPostByCategory(category).then((posts) => {
+
             this.props.listPostByCategory(posts);
         });
     }
